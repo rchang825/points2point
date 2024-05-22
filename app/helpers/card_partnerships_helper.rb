@@ -1,0 +1,2 @@
+module CardPartnershipsHelper
+end

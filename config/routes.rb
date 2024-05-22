@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :card_partnerships
+  resources :loyalty_programs
+  resources :airlines
   resources :cards
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -9,6 +9,9 @@
 #   end
 
 sapphire_preferred = Card.create!(name: "Chase Sapphire Preferred", points: 10000,
- value: 125, conversion: 1.25)
-venture = Card.create!(name: "Capital One Venture", points: 30000, value: 300, conversion: 1)
-alaska = Card.create!(name: "Alaska Airlines", points: 80000, value: 800, conversion: 1)
+conversion_rate: 1.25)
+venture = Card.create!(name: "Capital One Venture", points: 30000, conversion_rate: 1)
+alaska = Card.create!(name: "Alaska Airlines", points: 80000, conversion_rate: 1)
+virgin = LoyaltyProgram.create!(name: "Virgin Atlantic", category: "airline")
+flying_blue = LoyaltyProgram.create!(name: "Flying Blue", category: "airline")
+hyatt = LoyaltyProgram.create!(name: "Hyatt", category: "hotel")

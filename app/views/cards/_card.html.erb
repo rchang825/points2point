@@ -11,12 +11,12 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Value:</strong>
-    <%= card.value %>
+    <%= "$%0.2f" % [card.value] %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Conversion:</strong>
-    <%= card.conversion %>
+    <%= card.conversion_rate %>
   </p>
 
 </div>

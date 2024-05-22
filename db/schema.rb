@@ -10,12 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_032637) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_22_061948) do
+  create_table "card_partnerships", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "loyalty_program_id"
+    t.decimal "conversion_rate"
+    t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.integer "points"
-    t.decimal "value"
-    t.decimal "conversion"
+    t.decimal "conversion_rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "loyalty_programs", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -8,11 +8,11 @@
   </p>
 
   <p class="my-5">
-    <%= card.value %>
+    <%= "$%0.2f" % [card.value] %>
   </p>
 
   <p class="my-5">
-    <%= card.conversion %>
+    <%= card.conversion_rate %>
   </p>
 
 </div>
