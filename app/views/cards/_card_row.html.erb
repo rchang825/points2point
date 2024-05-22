@@ -17,8 +17,7 @@
 
   <p class="my-5">
     <% card.card_partnerships.each do |partnership| %>
-      <% program = LoyaltyProgram.find_by_id(partnership.loyalty_program_id) %>
-      <%= program.name %>
+      <%= partnership.loyalty_program.name %>
     <% end %>
   </p>
 

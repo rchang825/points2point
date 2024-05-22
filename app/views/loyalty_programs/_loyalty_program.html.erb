@@ -12,8 +12,7 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">Partners:</strong>
     <% loyalty_program.card_partnerships.each do |partnership| %>
-      <% partner = Card.find_by_id(partnership.card_id) %>
-      <%= partner.name %>
+      <%= partnership.card.name %>
     <% end %>
   </p>
 
