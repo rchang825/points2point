@@ -1,0 +1,56 @@
+<% if !@loyalty_program %>
+    <%= form_with url: calculations_path, method: :GET do |form| %>
+        <%= form.label :loyalty_program, "Choose a loyalty program" %>
+        <%= form.collection_select(:loyalty_program, @partnered_loyalty_programs, :id, :name) %>
+        <%# form.collection_select(:loyalty_program_id, LoyaltyProgram.all, :id, :name) %>
+        <br>
+        <%= form.label :goal, "Desired points:" %>
+        <%= form.number_field :goal %>
+        <br>
+        <%= form.submit %>
+    <% end %>
+<% end %>
+<br>
+
+<% if @loyalty_program %>
+    <div>
+        Selected program: <%= @loyalty_program.name %>
+        Points needed: <%= @goal %>
+    </div>
+    <%= form_with url: calculations_path, method: :GET do |form| %>
+    
+        <%# get chosen loyalty program %>
+        <%# get and show all cards partnered with chosen loyalty program %>
+        <%= fields_for "partnerships" do |f| %>
+            <% @loyalty_program.card_partnerships.each do |partnership| %>
+                <br>
+                <div>
+                    <%= partnership.card.name %>:
+                    <br>
+                    <%# <%= f.label :points_used, "Points:" %> 
+                    <%# <%= f.number_field :points_used %> 
+                    
+                </div>
+                <div>
+                    <%= f.fields_for partnership.id.to_s do |f2| %>
+                        <%= f2.label :points_used, "Points:" %>
+                        <%= f2.number_field :points_used %>
+                        /<%= partnership.card.points %>
+                    <% end %>
+                </div>
+            <% end %>
+        <% end %>
+        <br>
+        <%= form.submit "Calculate" %>
+    <% end %> 
+<% end %>
+<%# 
+<%= form_with url: calculations_path do |form| %>
+    
+        <%# get chosen loyalty program %>
+        <%# get and show all cards partnered with chosen loyalty program %>
+    <%# <%= @loyalty_program %>
+
+    <%# <br>
+    <%= form.submit "Calculate" %>
+<%# <% end %>   
