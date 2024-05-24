@@ -17,7 +17,7 @@
         Selected program: <%= @loyalty_program.name %>
         Points needed: <%= @goal %>
     </div>
-    <%= form_with url: calculations_path, method: :GET do |form| %>
+    <%= form_with method: :GET do |form| %>
     
         <%# get chosen loyalty program %>
         <%# get and show all cards partnered with chosen loyalty program %>
@@ -33,6 +33,8 @@
                 </div>
                 <div>
                     <%= f.fields_for partnership.id.to_s do |f2| %>
+                        <%= hidden_field_tag 'loyalty_program', @loyalty_program.id %>
+                        <%= hidden_field_tag 'goal', @goal %>
                         <%= f2.label :points_used, "Points:" %>
                         <%= f2.number_field :points_used %>
                         /<%= partnership.card.points %>
@@ -43,6 +45,12 @@
         <br>
         <%= form.submit "Calculate" %>
     <% end %> 
+<% end %>
+
+<% if @points_needed %>
+    <p>
+        Your credit card points used convert to <%= @total_points_used%> <%= @loyalty_program.name %> points. You still need <%= @points_needed %> points for your <%= @goal %> point award.
+    </p>
 <% end %>
 <%# 
 <%= form_with url: calculations_path do |form| %>
