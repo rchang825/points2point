@@ -1,0 +1,31 @@
+<%= turbo_frame_tag 'partnerships-list' do %>
+    optimized points distribution </br>
+    goal: <%= @goal %> </br>
+    loyalty program: <%= @loyalty_program.name %>
+
+    <%= form_with url: calculations_path, method: :GET do |form| %>
+
+    <%# get chosen loyalty program %>
+    <%# get and show all cards partnered with chosen loyalty program %>
+    <%= fields_for "partnerships" do |f| %>
+        <% @optimized_partnerships.each do |partnership| %>
+            <br>
+            <div>
+                <%= partnership[0].card.name %>:
+                <br>
+            </div>
+            <div>
+                <%= f.fields_for partnership[0].id.to_s do |f2| %>
+                    <%= hidden_field_tag 'loyalty_program', @loyalty_program.id %>
+                    <%= hidden_field_tag 'goal', @goal %>
+                    <%= f2.label :points_used, "Points:" %>
+                    <%= f2.number_field :points_used, value: partnership[1].to_s %>
+                    /<%= partnership[0].card.points %>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+    <br>
+    <%= form.submit "Calculate", class: "text-blue-500 hover:underline", data: {turbo_frame: 'calculation'}%>
+    <% end %>
+<% end %>

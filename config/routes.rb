@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   resources :loyalty_programs
   resources :airlines
   resources :cards
-  resources :calculations
+  resources :calculations do
+    collection do
+      get "optimize"
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
 

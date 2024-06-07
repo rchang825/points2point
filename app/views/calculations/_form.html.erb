@@ -7,7 +7,7 @@
             <%= form.label :goal, "Desired points:" %>
             <%= form.number_field :goal %>
             <br>
-            <%= form.submit "Go", class: "text-blue-500 hover:underline", data: {turbo_frame: 'partnerships-list'} %>
+            <%= form.submit "Show points", class: "text-blue-500 hover:underline", data: {turbo_frame: 'partnerships-list'} %>
         <% end %>
     <% end %>
     <br>
@@ -15,9 +15,10 @@
     <%= turbo_frame_tag 'partnerships-list' do %>
         <% if @loyalty_program %>
             <div>
-                Selected program: <%= @loyalty_program.name %>
+                Selected program: <%= @loyalty_program.name %> </br>
                 Points needed: <%= @goal %>
             </div>
+            <%= link_to "Optimize", optimize_calculations_path(loyalty_program: @loyalty_program.id, goal: @goal), class: "text-blue-500 hover:underline", data: {turbo_frame: 'partnerships-list'} %>
             <%= form_with url: calculations_path, method: :GET do |form| %>
             
                 <%# get chosen loyalty program %>
