@@ -53,6 +53,6 @@ class CalculationsController < ApplicationController
         points_needed = 0
       end
     end
-    optimized
+    [optimized, points_needed]
   end
 end

@@ -1,29 +1,34 @@
 <%= turbo_frame_tag 'partnerships-list' do %>
-    optimized points distribution </br>
-    goal: <%= @goal %> </br>
-    loyalty program: <%= @loyalty_program.name %>
-
+    ........Optimizing........
     <%= form_with url: calculations_path, method: :GET do |form| %>
 
     <%# get chosen loyalty program %>
     <%# get and show all cards partnered with chosen loyalty program %>
     <%= fields_for "partnerships" do |f| %>
-        <% @optimized_partnerships.each do |partnership| %>
+        <% @optimized_partnerships[0].each do |p| %>
+            <% partnership = p[0] %>
+            <% points_used = p[1] %>
             <br>
             <div>
-                <%= partnership[0].card.name %>:
+                <%= partnership.card.name %>:
                 <br>
             </div>
             <div>
-                <%= f.fields_for partnership[0].id.to_s do |f2| %>
+                <%= f.fields_for partnership.id.to_s do |f2| %>
                     <%= hidden_field_tag 'loyalty_program', @loyalty_program.id %>
                     <%= hidden_field_tag 'goal', @goal %>
                     <%= f2.label :points_used, "Points:" %>
-                    <%= f2.number_field :points_used, value: partnership[1].to_s %>
-                    /<%= partnership[0].card.points %>
+                    <%= f2.number_field :points_used, value: points_used.to_s %>
+                    /<%= partnership.card.points %>
                 <% end %>
             </div>
         <% end %>
+    <% end %>
+    <br>
+    <% if @optimized_partnerships[1] <= 0 %>
+        Optimization complete. Transfer the above credit card points to <%= @loyalty_program.name %> for <%= @goal %> points.
+    <% else %>
+        Using all points from all applicable credit cards, you still need <%= @optimized_partnerships[1] %> points for your goal.
     <% end %>
     <br>
     <%= form.submit "Calculate", class: "text-blue-500 hover:underline", data: {turbo_frame: 'calculation'}%>

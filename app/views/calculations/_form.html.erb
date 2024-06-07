@@ -49,8 +49,11 @@
     <%= turbo_frame_tag 'calculation' do %>
         <% if @points_needed %>
             <p>
-                Your credit card points used convert to <%= @total_points_used%> <%= @loyalty_program.name %> points. You still need <%= @points_needed %> points for your <%= @goal %> point award.
+                Your selected credit card points convert to <%= @total_points_used%> <%= @loyalty_program.name %> points. 
             </p>
+            <% if @points_needed > 0 %>
+                You still need <%= @points_needed %> points for your <%= @goal %> point award.
+            <% end %>
         <% end %>
     <% end %>
 </div>
