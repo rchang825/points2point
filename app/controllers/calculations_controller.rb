@@ -42,10 +42,11 @@ class CalculationsController < ApplicationController
     points_needed = @goal.to_i
     partnerships.each do |partnership|
       puts partnership.card.name
+      possible_points = partnership.card.points * partnership.conversion_rate
       if points_needed == 0
           optimized.push([partnership, 0])
-      elsif (points_needed - partnership.card.points * partnership.conversion_rate) >= 0
-        points_needed = points_needed - partnership.card.points * partnership.conversion_rate
+      elsif points_needed >= possible_points
+        points_needed = points_needed - possible_points
         optimized.push([partnership, partnership.card.points])
       else
         subpoints = points_needed / partnership.conversion_rate
